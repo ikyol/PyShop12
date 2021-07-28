@@ -12,6 +12,16 @@
   <nav class="navbar navbar-light bg-light">
   <div class="container-fluid">
     <a href="{% url 'home' %}" class="navbar-brand">Apparat Shop</a>
+<!--    Is Authenticated-->
+    {% if not request.user.is_authenticated %}
+      <a href="{% url 'register' %}">Sign Up</a>
+      <a href="{% url 'login' %}">Sign In</a>
+    {% else %}
+    <h4>{{ request.user.username }}</h4>
+    <a href="{% url 'logout' %}">Log Out</a>
+    {% endif %}
+<!--    End is Authenticated-->
+
     <a href="{% url 'create-product' %}"><img style="width: 20px; height: 20px;" src="{% static 'img/plus.png' %}"></a>
     <form class="d-flex">
       <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
