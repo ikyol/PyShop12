@@ -21,12 +21,18 @@
     <a href="{% url 'logout' %}">Log Out</a>
     {% endif %}
 <!--    End is Authenticated-->
-
+<!--    Permission to create-->
+    {% if request.user.is_authenticated and request.user.is_superuser %}
     <a href="{% url 'create-product' %}"><img style="width: 20px; height: 20px;" src="{% static 'img/plus.png' %}"></a>
-    <form class="d-flex">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    {% endif %}
+<!--    End Permission-->
+
+<!--    Search -->
+    <form class="d-flex" method="get" action="{% url 'search' %}">
+      <input name="q" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
+<!--    End Search -->
   </div>
 </nav>
 <!--Navbar end-->
