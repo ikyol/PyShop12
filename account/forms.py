@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
 
+from account.utils import send_welcome_email
+
 
 class RegistrationForm(forms.ModelForm):
     username = forms.CharField(max_length=150, required=True)
@@ -34,5 +36,7 @@ class RegistrationForm(forms.ModelForm):
         return data
 
     def save(self, commit=True):
+        from .utils import send_mail
         user = User.objects.create_user(**self.cleaned_data)
+        send_welcome_email(user.email)
         return user
